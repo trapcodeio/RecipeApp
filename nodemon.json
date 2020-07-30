@@ -1,0 +1,11 @@
+{
+  "verbose": false,
+  "ignore": [
+    "*.test.js",
+    "*.sqlite",
+    "src/*",
+    "storage/*",
+    "public/*",
+    "tests/*"
+  ]
+}

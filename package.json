@@ -3,15 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "backend": "nodemon server.js",
+    "serve": "vue-cli-service serve --port 4000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@xpresser/env": "^1.0.3",
+    "bulma": "^0.9.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "xpress-mongo": "^0.0.34",
+    "xpresser": "^0.2.44"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
@@ -22,8 +27,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "izitoast": "^1.4.0",
+    "moment": "^2.27.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vue-trap-pack": "^0.0.36"
   }
 }

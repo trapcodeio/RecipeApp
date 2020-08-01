@@ -2,7 +2,9 @@
   <section v-if="loaded">
     <template v-if="user">
       <Navbar/>
-      <router-view/>
+      <div class="container mt-5">
+        <router-view/>
+      </div>
     </template>
     <template v-else>
       <div class="container">
@@ -64,10 +66,9 @@ export default {
   methods: {
     getUserStatus() {
       this.$api.getFrom('/auth/me', {}, {
-        yes: ({user}) => {
-          if (user) {
-            this.$store.commit('setUser', user);
-          }
+        yes: ({user, categories}) => {
+          this.$store.commit('setUser', user);
+          this.$store.commit('setCategories', categories);
           this.loaded = true;
         }
       })

@@ -8,12 +8,14 @@ import HttpRequestMixin from "vue-trap-pack/src/Requests";
 import LoadingButton from "./components/LoadingButton";
 import TimeAgo from "./components/TimeAgo";
 import $toast from "./toast";
+import StatusTag from "@/components/StatusTag";
 
 Vue.config.productionTip = false
 
 Vue.component('Busy', Busy)
 Vue.component('LoadingButton', LoadingButton)
 Vue.component('TimeAgo', TimeAgo)
+Vue.component('StatusTag', StatusTag);
 
 
 //// Setup
@@ -23,6 +25,8 @@ $api.isXmlRequest();
 Vue.use(VueTrapPack, {
     api: $api
 });
+
+Vue.prototype.$toast = $toast;
 
 // Axios interceptors
 $api.axios.interceptors.response.use((response) => {

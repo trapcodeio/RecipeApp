@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   globals: {
-    $: true
+    $: true,
+    HttpRequestMixin: true
   },
   'extends': [
     'plugin:vue/essential',

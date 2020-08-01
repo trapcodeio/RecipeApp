@@ -9,6 +9,10 @@ $.on.start([
     next => require('./backend/InjectMongo')(next),
 ]);
 
+$.on.boot([
+    next => require('./backend/SymLinkPublicFolder')(next),
+]);
+
 
 // Boot Server
 $.boot();

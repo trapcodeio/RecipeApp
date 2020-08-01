@@ -8,7 +8,8 @@ const mongo_server = (env['MongoServer'] || '').replace('<password>', mongo_pass
 module.exports = {
     name: 'Cooking',
     paths: {
-        base
+        base,
+        public: 'dist'
     },
     server: {
         port: env['AppPort'],

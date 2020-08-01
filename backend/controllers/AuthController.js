@@ -1,3 +1,4 @@
+const Category = require('../models/Category');
 const adminUsername = $.env('adminUsername');
 const adminPassword = $.env('adminPassword');
 
@@ -19,16 +20,19 @@ const AuthController = {
      * @param {Xpresser.Http} http
      * @return {any}
      */
-    me(http) {
-        let user;
+    async me(http) {
+        let data = {};
 
         if (http.session.loggedIn) {
-            user = {
-                username: 'daisy',
+            data.user = {
+                username: adminUsername,
             }
+
+            // get categories
+            data.categories = await Category.find({})
         }
 
-        return http.toApi({user})
+        return http.toApi(data)
     },
 
 

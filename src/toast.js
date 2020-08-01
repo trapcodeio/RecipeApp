@@ -24,6 +24,10 @@ export default {
         return this.show('success', message, title, config)
     },
 
+    info(message, title, config) {
+        return this.show('info', message, title, config)
+    },
+
     error(message, title, config) {
         return this.show('error', message, title, config)
     }

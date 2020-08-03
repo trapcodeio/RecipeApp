@@ -19,7 +19,24 @@ const CategoryController = {
      * @return {Promise<void>}
      */
     async all(http) {
-        const categories = await Categories.find({}, {sort: {name: 1}});
+        const categories = await Categories.fromArray(q => q.aggregate([
+            {
+                $lookup: {
+                    from: "recipes",
+                    localField: "name",
+                    foreignField: "category",
+                    as: "recipes"
+                },
+            },
+
+            {
+                $project: {
+                    name: 1,
+                    addedAt: 1,
+                    recipes: {$size: "$recipes"}
+                }
+            }
+        ]), r => r );
 
         return http.toApi({
             categories
@@ -40,7 +57,10 @@ const CategoryController = {
             return error('Name of category is required');
 
         // check if category exists
-        const hasCategory = await Categories.count({name: category});
+        const hasCategory = await Categories.count({
+            name: new RegExp('^' + category + '$', "i")
+        });
+
         if (hasCategory)
             return error(`Category with name (${category}) already exists.`);
 

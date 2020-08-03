@@ -893,10 +893,10 @@
   resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-3.2.2.tgz#a16500fbeebfec4ae43f4e9fe5bd739aeb66a3d6"
   integrity sha512-LNgKbdaScHHkBsq6UZsMpEL5yPY8oYTGaOX97+ArpJSw4B6KSQpKU+/GHnkytQhPgQLLob+ghejP0ifVQXuczg==
 
-"@trapcode/browser-storage@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@trapcode/browser-storage/-/browser-storage-0.0.5.tgz#ae2df397da0e089f5f04f93bf1ef7076cf52cc65"
-  integrity sha512-y9PTw9RA5g8I/mNm64tWu9KtIsDp2CkDPlYtOqdrxUuww24z3aQ8uPuZLhGQuiItVPqxnZtGaxyJG1x5/4DZBg==
+"@trapcode/browser-storage@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@trapcode/browser-storage/-/browser-storage-0.0.7.tgz#b7ec7444009806f5680fb0a9dc8f6d775ab82ea8"
+  integrity sha512-pbtGNOXaGTYx0icwKkTbaQtcWs1xJaYheech+4tuqD/FcEN7THXfno/UUKrWOz8Q4VJvvcQjKT+LEuy1SyaznA==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"

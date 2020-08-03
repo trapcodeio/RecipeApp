@@ -1,7 +1,8 @@
 <template>
   <section class="section">
     <div class="is-clearfix">
-      <h2 class="is-size-4 is-pulled-left">Categories <small class="has-text-grey">({{categories.length}})</small></h2>
+      <h2 class="is-size-4 is-pulled-left">Categories <small class="has-text-grey">({{ categories.length }})</small>
+      </h2>
       <button @click="toggleAddModal" class="button is-primary is-pulled-right">Add</button>
     </div>
 
@@ -15,15 +16,17 @@
         </tr>
         </thead>
         <tbody>
-          <template v-for="(cat, catId) in categories">
-            <tr :key="catId">
-              <td>
-                <router-link :to="rl('index')">{{cat.name}}</router-link>
-              </td>
-              <td>0</td>
-              <td><TimeAgo :date="cat.addedAt"/></td>
-            </tr>
-          </template>
+        <template v-for="(cat, catId) in categories">
+          <tr :key="catId">
+            <td>
+              <router-link :to="rl('recipes.category', {category: cat.name})">{{ cat.name }}</router-link>
+            </td>
+            <td>{{ cat.recipes }}</td>
+            <td>
+              <TimeAgo :date="cat.addedAt"/>
+            </td>
+          </tr>
+        </template>
         </tbody>
       </table>
     </div>

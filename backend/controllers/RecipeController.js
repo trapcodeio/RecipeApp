@@ -1,4 +1,4 @@
-const Recipes = require('../models/Recipe');
+const Recipe = require('../models/Recipe');
 const {Abolish} = require('abolish');
 const abolish = new Abolish();
 abolish.addValidators([
@@ -29,7 +29,7 @@ const RecipeController = {
 
         if (http.params.recipe) {
             const recipe = http.params.recipe;
-            data.recipe = await Recipes.findById(recipe);
+            data.recipe = await Recipe.findById(recipe);
 
             if (!data.recipe) {
                 return error(`Recipe with id: (${recipe}) not found!`);
@@ -47,7 +47,20 @@ const RecipeController = {
      */
     async all(http) {
         const page = http.query('page', 1);
-        const recipes = await Recipes.paginate(page, 30)
+        const category = http.query('category', undefined);
+        const search = http.query('search', undefined);
+
+        const where = {};
+
+        if (category) {
+            where['category'] = category;
+        }
+
+        if (search) {
+            where['title'] = new RegExp(`.*${search}.*`, 'i')
+        }
+
+        const recipes = await Recipe.paginate(page, 30, where);
         return http.toApi({
             recipes
         });
@@ -109,7 +122,7 @@ const RecipeController = {
 
         // get file relative path
         image.path = image.path.replace(folder, '');
-        const recipe = Recipes.make(validated)
+        const recipe = Recipe.make(validated)
             .set('image', image.path)
             .set('status', 'draft');
 
@@ -192,7 +205,7 @@ const RecipeController = {
             recipe.set('image', image.path);
         }
 
-        let message  = `Recipe (${recipe.data.title}) UPDATED successfully`;
+        let message = `Recipe (${recipe.data.title}) UPDATED successfully`;
         if (body.status === 'publish') {
             message = `Recipe (${recipe.data.title}) PUBLISHED successfully`;
             recipe.set({

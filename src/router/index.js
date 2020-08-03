@@ -18,6 +18,11 @@ const routes = [
         component: AllRecipes
     },
     {
+        path: '/recipes/category/:category',
+        name: 'recipes.category',
+        component: AllRecipes
+    },
+    {
         path: '/recipes/add',
         name: 'recipe.add',
         component: AddRecipe

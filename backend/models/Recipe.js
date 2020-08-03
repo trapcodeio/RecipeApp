@@ -14,9 +14,6 @@ const RecipeSchema = {
     status: is.String().required()
 }
 
-/**
- * @extends XMongoModel
- */
 class Recipe extends ModelExtender('recipes') {
 
     constructor() {

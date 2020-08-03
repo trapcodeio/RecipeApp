@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tinymce/tinymce-vue": "^3.2.2",
-    "@trapcode/browser-storage": "^0.0.5",
+    "@trapcode/browser-storage": "^0.0.7",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",

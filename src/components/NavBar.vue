@@ -5,7 +5,7 @@
         <h3 class="is-size-4 has-text-primary has-text-weight-bold has-text-grey-dark">Daisy's Kitchen</h3>
       </router-link>
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      <a role="button" @click.prevent="toggle" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
          data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -13,7 +13,7 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbarBasicExample" :class="menuClass">
       <div class="navbar-end">
         <router-link :to="{name: 'index'}" class="navbar-item">
           <i class="fad fa-layer-group mr-1"></i> Categories
@@ -33,8 +33,22 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      showMenu: false
+    }
+  },
+
+  computed: {
+    menuClass(){
+      return this.showMenu ? 'navbar-menu is-active' : 'navbar-menu'
+    }
+  },
 
   methods: {
+    toggle(){
+      this.showMenu = !this.showMenu;
+    },
     logout() {
       this.$api.postTo('/auth/logout', {}, {
         yes: () => {

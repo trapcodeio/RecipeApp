@@ -7,7 +7,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="container">
+      <div class="container section">
         <div class="columns" style="margin-top: 20vh">
           <div
               class="column is-8-tablet is-6-desktop is-4-widescreen is-offset-2-tablet is-offset-3-desktop is-offset-4-widescreen">

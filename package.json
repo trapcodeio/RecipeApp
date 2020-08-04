@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "backend": "nodemon server.js",
+    "start": "node recipe-app.js",
+    "backend": "nodemon recipe-app.js.js",
     "serve": "vue-cli-service serve --port 4000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

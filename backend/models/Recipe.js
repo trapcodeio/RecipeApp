@@ -16,9 +16,16 @@ const RecipeSchema = {
 
 class Recipe extends ModelExtender('recipes') {
 
+    static append = ['imageUrl']
+
     constructor() {
         super();
         this.useSchema(RecipeSchema);
+    }
+
+    imageUrl() {
+        if (!this.data.image) return null;
+        return $.helpers.url('storage' + this.data.image);
     }
 
 }

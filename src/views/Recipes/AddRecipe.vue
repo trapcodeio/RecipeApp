@@ -295,7 +295,7 @@ export default {
           method: recipe.method
         }
 
-        this.recipeImage = '/storage/' + recipe.image;
+        this.recipeImage = '/storage' + recipe.image;
       }
 
       this.loaded = true

@@ -77,6 +77,11 @@ const ApiController = {
             ])
         });
 
+        // noinspection JSValidateTypes
+        recipes.data = Recipe.fromArray(recipes.data);
+
+        console.log(recipes.data)
+
         return http.send(recipes);
     },
 

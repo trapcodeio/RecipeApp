@@ -38,7 +38,7 @@
             <div class="card">
               <div class="card-image">
                 <figure class="image recipe-image-holder">
-                  <img :src="'storage/' +recipe.image" alt="Placeholder image">
+                  <img :src="'storage' +recipe.image" alt="Placeholder image">
                 </figure>
               </div>
               <div class="card-content">

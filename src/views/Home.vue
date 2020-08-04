@@ -74,6 +74,7 @@ export default {
     mountFromServer({categories}) {
       if (categories) {
         this.categories = categories;
+        this.$store.commit('setCategories', categories);
       }
     },
 

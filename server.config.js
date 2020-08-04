@@ -32,6 +32,7 @@ module.exports = {
             }
         },
         use: {
+            cors: true,
             session: true
         }
     },

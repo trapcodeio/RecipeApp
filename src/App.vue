@@ -50,8 +50,8 @@ export default {
     return {
       loaded: false,
       form: {
-        username: 'daisy',
-        password: 'daisy@2020'
+        username: '',
+        password: ''
       }
     }
   },
@@ -75,7 +75,7 @@ export default {
     },
     login(btn) {
       this.$api.postTo('/auth/login', this.form, {
-        yes: () => this.getUserStatus(),
+        yes: () => window.location.reload(),
         any: () => btn.stopLoading()
       })
     }

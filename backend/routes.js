@@ -14,6 +14,8 @@ route.path('/api', () => {
 
         route.get('=all');
         route.post('=create');
+        route.delete('=delete');
+        route.patch('=rename');
 
     }).controller('Category').middleware('Auth.logged');
 
@@ -28,6 +30,7 @@ route.path('/api', () => {
 
         route.get('=view');
         route.post('=edit');
+        route.delete('=delete')
 
     }).controller('Recipe').middleware('Auth.logged')
 });

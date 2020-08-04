@@ -3,7 +3,7 @@
     <div class="is-clearfix">
       <h2 class="is-size-4 is-pulled-left">Categories <small class="has-text-grey">({{ categories.length }})</small>
       </h2>
-      <button @click="toggleAddModal" class="button is-primary is-pulled-right">Add</button>
+      <button @click.prevent="toggleAddModal" class="button is-primary is-pulled-right">Add</button>
     </div>
 
     <div class="table-container mt-3">
@@ -13,6 +13,7 @@
           <th>Name</th>
           <th>Recipes</th>
           <th>Date Added</th>
+          <th/>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +25,10 @@
             <td>{{ cat.recipes }}</td>
             <td>
               <TimeAgo :date="cat.addedAt"/>
+            </td>
+            <td>
+              <a @click.prevent="toggleAddModal(catId)" class="mr-3"><small>rename</small></a>
+              <a @click.prevent="deleteCategory(catId)" class="has-text-danger"><small>delete</small></a>
             </td>
           </tr>
         </template>
@@ -44,7 +49,8 @@
             </div>
 
             <div class="mt-2 has-text-centered">
-              <LoadingButton :click="addCategory" class="is-primary">Add Category</LoadingButton>
+              <LoadingButton v-if="isRenaming" :click="renameCategory" class="is-info">Rename Category</LoadingButton>
+              <LoadingButton v-else :click="addCategory" class="is-primary">Add Category</LoadingButton>
             </div>
           </form>
         </div>
@@ -66,7 +72,9 @@ export default {
       categories: [],
       addCategoryForm: {
         name: ''
-      }
+      },
+
+      isRenaming: false,
     }
   },
 
@@ -78,9 +86,16 @@ export default {
       }
     },
 
-    toggleAddModal() {
+    toggleAddModal(rename) {
+      this.isRenaming = typeof rename === "number" ? rename : false;
       this.showAddModal = !this.showAddModal;
-      this.addCategoryForm.name = ''
+      this.addCategoryForm.name = '';
+
+      if (this.showAddModal && this.isRenaming !== false) {
+        const category = this.categories[this.isRenaming]
+        this.addCategoryForm.name = category.name;
+        this.isRenaming = category._id;
+      }
     },
 
     addCategory(btn) {
@@ -91,6 +106,34 @@ export default {
         },
         any: () => btn.stopLoading()
       })
+    },
+
+    renameCategory(btn) {
+      this.$api.sendVia('PATCH', 'categories', {
+        rename: this.isRenaming,
+        name: this.addCategoryForm.name
+      }, {
+        yes: () => {
+          this.toggleAddModal()
+          this.loaded = false;
+          this.reloadFetchedData()
+        },
+        any: () => btn.stopLoading()
+      })
+    },
+
+    deleteCategory(catId) {
+      const category = this.categories[catId];
+      const shouldDelete = confirm(`Are you sure you want to delete (${category.name}) category?`);
+
+      if (shouldDelete) {
+        this.categories.splice(catId, 1);
+        this.$api.deleteFrom('categories', {category: category._id}, {
+          noOrError: () => {
+            this.categories.splice(catId, 0, category);
+          }
+        })
+      }
     }
   }
 }

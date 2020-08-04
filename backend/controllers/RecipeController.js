@@ -92,7 +92,7 @@ const RecipeController = {
         const {error, validated} = abolish.validate(body, {
             title: 'must|minLength:3',
             category: 'must|minLength:3',
-            calories: 'must|minLength:3',
+            calories: 'must|minLength:1',
             difficulty: 'must',
             duration: 'must',
             ingredients: 'must|json|jsonDecode',
@@ -170,7 +170,7 @@ const RecipeController = {
         const {error, validated} = abolish.validate(body, {
             title: 'must|minLength:3',
             category: 'must|minLength:3',
-            calories: 'must|minLength:3',
+            calories: 'must|minLength:1',
             difficulty: 'must',
             duration: 'must',
             ingredients: 'must|json|jsonDecode',
@@ -227,7 +227,20 @@ const RecipeController = {
         return http.toApi({
             message
         })
-    }
+    },
+
+    /**
+     * Delete Recipe
+     * @param {Xpresser.Http} http
+     * @param recipe
+     * @return {Promise<any>}
+     */
+    async delete(http, {recipe}) {
+        const title = recipe.get('title');
+        await recipe.delete();
+
+        return http.toApi({message: `Recipe (${title}) deleted successfully.`});
+    },
 };
 
 

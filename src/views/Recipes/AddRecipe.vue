@@ -1,6 +1,10 @@
 <template>
   <section class="section">
-    <h4 class="is-size-4">{{ isEditing ? 'Edit' : 'Add' }} Recipe</h4>
+    <div class="is-clearfix">
+      <h4 class="is-size-4 is-pulled-left">{{ isEditing ? 'Edit' : 'Add' }} Recipe</h4>
+      
+      <LoadingButton v-if="isEditing" :click="deleteRecipe" class="is-pulled-right is-danger is-small"><i class="fa fa-trash" aria-hidden="true"></i></LoadingButton>
+    </div>
     <div v-if="loaded" class="box has-background-light">
       <div class="columns">
         <div class="column is-narrow">
@@ -419,6 +423,18 @@ export default {
         })
       }
 
+    },
+
+    deleteRecipe(btn){
+      const shouldDelete = confirm(`Are you sure you want to delete this recipe?`);
+      if(!shouldDelete) return btn.stopLoading();
+
+      this.$api.deleteFrom('recipe/' + this.recipe._id, {}, {
+        yes: () => {
+          this.$router.push({name: 'recipes'}).catch(e => e);
+        },
+        any: () => btn.stopLoading()
+      })
     }
   }
 }

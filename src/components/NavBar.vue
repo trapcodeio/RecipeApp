@@ -39,14 +39,20 @@ export default {
     }
   },
 
+  watch: {
+    '$route.name'() {
+      this.showMenu = false;
+    }
+  },
+
   computed: {
-    menuClass(){
+    menuClass() {
       return this.showMenu ? 'navbar-menu is-active' : 'navbar-menu'
     }
   },
 
   methods: {
-    toggle(){
+    toggle() {
       this.showMenu = !this.showMenu;
     },
     logout() {

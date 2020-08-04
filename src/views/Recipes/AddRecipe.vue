@@ -127,7 +127,7 @@
                       </div>
                       <div class="control">
                         <button type="submit" class="button">
-                          save
+                          edit
                         </button>
                       </div>
                     </div>
@@ -352,6 +352,7 @@ export default {
     },
 
     saveIngredient(serveId) {
+      console.log(serveId);
       if (!this.ingredientForm.edit)
         return this.$toast.info('New name of ingredient is empty!');
 
@@ -369,7 +370,8 @@ export default {
     },
 
     duplicateServe(serveId) {
-      const newId = this.form.ingredients.push(this.form.ingredients[serveId]);
+      const clonedIngredient = JSON.parse(JSON.stringify(this.form.ingredients[serveId]))
+      const newId = this.form.ingredients.push(clonedIngredient);
       this.changeActiveServe(newId - 1);
     },
 

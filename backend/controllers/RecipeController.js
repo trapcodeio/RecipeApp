@@ -1,3 +1,4 @@
+const Sharp = require('sharp');
 const Recipe = require('../models/Recipe');
 const {Abolish} = require('abolish');
 const abolish = new Abolish();
@@ -5,6 +6,29 @@ abolish.addValidators([
     require('abolish/validators/string/json'),
     require('abolish/validators/string/jsonDecode')
 ])
+
+/**
+ * Resize image after upload
+ */
+const resizeImage = ($file) => {
+    const newFileName = $file + '.resize';
+    Sharp($file)
+        .resize({
+            width: 500,
+            fit: 'cover'
+        })
+        .toFile(newFileName)
+        .then(() => {
+            $.file.delete($file);
+            $.file.fs().renameSync(newFileName, $file);
+        })
+        .catch($.logError);
+};
+
+const deleteImage = (path) => {
+    const image = $.path.storage('public' + path)
+    $.file.delete(image);
+}
 
 /**
  * RecipeController
@@ -199,10 +223,16 @@ const RecipeController = {
                 return e(image.saveError());
             }
 
+            resizeImage(image.path);
+
             // get file relative path
             image.path = image.path.replace(folder, '');
             // Update
+            const oldImage = recipe.get('image');
             recipe.set('image', image.path);
+
+            // Delete old recipe
+            deleteImage(oldImage);
         }
 
         let message = `Recipe (${recipe.data.title}) UPDATED successfully`;
@@ -237,11 +267,11 @@ const RecipeController = {
      */
     async delete(http, {recipe}) {
         const title = recipe.get('title');
-        const image = $.path.storage('public' + recipe.get('image'))
+        const image = recipe.get('image');
         await recipe.delete();
 
         // delete image
-        $.file.delete(image)
+        deleteImage(image);
 
         return http.toApi({message: `Recipe (${title}) deleted successfully.`});
     },

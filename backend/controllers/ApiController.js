@@ -67,13 +67,9 @@ const ApiController = {
         }
 
         const recipes = await Recipe.paginate(page, perPage, where, {
-            projection: pickKeys([
-                'title',
-                'category',
-                'duration',
-                'difficulty',
-                'image',
-                'publishedAt'
+            projection: omitKeys([
+                'addedAt',
+                'updatedAt'
             ])
         });
 

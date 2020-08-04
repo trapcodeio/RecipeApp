@@ -237,7 +237,11 @@ const RecipeController = {
      */
     async delete(http, {recipe}) {
         const title = recipe.get('title');
+        const image = $.path.storage('public' + recipe.get('image'))
         await recipe.delete();
+
+        // delete image
+        $.file.delete(image)
 
         return http.toApi({message: `Recipe (${title}) deleted successfully.`});
     },

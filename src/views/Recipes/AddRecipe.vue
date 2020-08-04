@@ -411,6 +411,9 @@ export default {
           yes: () => {
             this.reloadFetchedData()
           },
+          no: () => {
+            this.loaded = true
+          },
           any: () => btn.stopLoading()
         })
       } else {

@@ -250,6 +250,10 @@ const RecipeController = {
             })
         }
 
+        if (recipe.data.preparation && !validated.preparation) {
+            recipe.set('preparation', undefined);
+        }
+
 
         // Save recipe
         await recipe.update(validated);

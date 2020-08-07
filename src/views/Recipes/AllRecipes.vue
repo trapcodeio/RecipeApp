@@ -34,7 +34,7 @@
     <div v-if="loaded" class="columns mt-5 is-multiline">
       <template v-if="recipes.total">
         <div class="column is-4" v-for="(recipe, recipeId) in recipes.data" :key="recipeId">
-          <router-link :to="rl('recipe.view', {recipe: recipe._id})">
+          <router-link :to="rl('recipe.edit', {recipe: recipe._id})">
             <div class="card">
               <div class="card-image">
                 <figure class="image recipe-image-holder">

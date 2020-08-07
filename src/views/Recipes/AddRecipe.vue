@@ -3,7 +3,10 @@
     <div class="is-clearfix">
       <h4 class="is-size-4 is-pulled-left">{{ isEditing ? 'Edit' : 'Add' }} Recipe</h4>
       
-      <LoadingButton v-if="isEditing" :click="deleteRecipe" class="is-pulled-right is-danger is-small"><i class="fa fa-trash" aria-hidden="true"></i></LoadingButton>
+      <div class="is-pulled-right">
+        <LoadingButton v-if="isEditing" :click="deleteRecipe" class="is-danger is-small mr-3"><i class="fa fa-trash" aria-hidden="true"></i></LoadingButton>
+        <router-link v-if="isEditing" :to="rl('recipe.view', {recipe: recipeId})" class="button is-dark is-small"><i class="fa fa-eye" aria-hidden="true"></i></router-link>
+      </div>
     </div>
     <div v-if="loaded" class="box has-background-light">
       <div class="columns">
@@ -251,7 +254,11 @@ export default {
   computed: {
     ...mapGetters(['categories']),
     isEditing() {
-      return this.$route.name === 'recipe.view'
+      return this.$route.name === 'recipe.edit'
+    },
+
+    recipeId(){
+      return this.$route.params.recipe || undefined
     }
   },
 

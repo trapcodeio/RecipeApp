@@ -1,3 +1,4 @@
 [
+  "npm://@xpresser/xpress-mongo",
   "npm://@xpresser/file-uploader"
 ]

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node recipe-app.js",
-    "backend": "nodemon recipe-app.js.js",
+    "backend": "nodemon recipe-app.js",
     "serve": "vue-cli-service serve --port 4000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@xpresser/env": "^1.0.3",
     "@xpresser/file-uploader": "^0.1.16",
+    "@xpresser/xpress-mongo": "^0.1.0",
     "abolish": "^0.0.16",
     "bulma": "^0.9.0",
     "core-js": "^3.6.5",

@@ -1,4 +1,5 @@
-const {ModelExtender, is} = require('../xmongo');
+const {DBCollection, is} = require("@xpresser/xpress-mongo/util");
+
 const FileSchema = {
     addedAt: is.Date().required(),
     name: is.String().required(),
@@ -11,7 +12,7 @@ const FileSchema = {
 * File Model
 * @class
 */
-class File extends ModelExtender('files') {
+class File extends DBCollection('files') {
 
     constructor() {
         super();

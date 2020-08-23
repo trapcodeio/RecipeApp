@@ -1,4 +1,5 @@
-const {ModelExtender, is} = require('../xmongo');
+const {DBCollection, is} = require("@xpresser/xpress-mongo/util");
+
 const RecipeSchema = {
     addedAt: is.Date().required(),
     updatedAt: is.Date().isOptional(),
@@ -14,7 +15,7 @@ const RecipeSchema = {
     status: is.String().required()
 }
 
-class Recipe extends ModelExtender('recipes') {
+class Recipe extends DBCollection('recipes') {
 
     static append = ['imageUrl']
 

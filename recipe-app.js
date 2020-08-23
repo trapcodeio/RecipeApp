@@ -5,9 +5,9 @@ const config = require('./server.config');
 const $ = xpresser(config);
 
 // Inject Mongo
-$.on.start([
-    next => require('./backend/InjectMongo')(next),
-]);
+// $.on.start([
+//     next => require('./backend/InjectMongo')(next),
+// ]);
 
 $.on.boot([
     next => require('./backend/SymLinkPublicFolder')(next),

@@ -12,7 +12,7 @@ const ApiController = {
     // Controller Middlewares
     middlewares: {},
     // Controller Default Service Error Handler.
-    e: (http, error) => http.status(400).send({error}),
+    e: (http, error) => http.status(401).send({error}),
 
 
     /**
@@ -33,7 +33,7 @@ const ApiController = {
 
             {
                 $project: {
-                    _id: 0,
+                    _id: 1,
                     name: 1,
                     addedAt: 1,
                     recipes: {$size: "$recipes"}
@@ -48,18 +48,28 @@ const ApiController = {
     /**
      * List all recipes
      * @param {Xpresser.Http} http
+     * @param boot
+     * @param error
      * @return {Promise<void>}
      */
-    async recipes(http) {
+    async recipes(http, boot, error) {
         const page = http.query('page', 1);
         const perPage = http.query('limit', 100);
-        const category = http.query('category', undefined);
+        let category = http.query('category', undefined);
         const search = http.query('search', undefined);
 
         const where = {status: 'published'};
 
         if (category) {
-            where['category'] = category;
+            if (Categories.isValidId(category)) {
+                const categoryId = category;
+                category = await Categories.findById(categoryId);
+
+                if (!category) return error(`No category with id: ${categoryId}`);
+                where['category'] = category.get('name');
+            } else {
+                where['category'] = category;
+            }
         }
 
         if (search) {

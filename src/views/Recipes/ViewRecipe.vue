@@ -1,9 +1,17 @@
 <template>
   <section v-if="loaded" class="section">
-    <h3 class="is-size-3"><small class="is-size-5 has-text-grey">Viewing Recipe:</small> {{ recipe.title }}</h3>
+    <h3 class="is-size-3">
+      <small class="is-size-5 has-text-grey">Viewing Recipe:</small>
+      {{ recipe.title }}
+    </h3>
 
-    <div class="box my-5 has-background-dark has-text-white" v-if="recipe.ingredients.length">
-      <h4 class="is-size-4 has-text-centered has-text-success">Serve {{ activeServe + 1 }}</h4>
+    <div
+      class="box my-5 has-background-dark has-text-white"
+      v-if="recipe.ingredients.length"
+    >
+      <h4 class="is-size-4 has-text-centered has-text-success">
+        Serve {{ activeServe + 1 }}
+      </h4>
       <ul>
         <template v-for="(ingredient, ingId) in recipe.ingredients[activeServe]">
           <li :key="ingId">{{ ingredient }}</li>
@@ -21,7 +29,7 @@
     </div>
     <pre class="my-5">{{ recipe }}</pre>
   </section>
-  <Busy v-else/>
+  <Busy v-else />
 </template>
 
 <script>
@@ -29,8 +37,8 @@ export default {
   mixins: [
     new window.HttpRequestMixin((self) => {
       return {
-        route: '/recipe/' + self.recipeId
-      }
+        route: "/recipe/" + self.recipeId
+      };
     })
   ],
   data() {
@@ -39,17 +47,17 @@ export default {
       recipe: {},
 
       activeServe: 0
-    }
+    };
   },
 
   computed: {
     recipeId() {
-      return this.$route.params.recipe || false
+      return this.$route.params.recipe || false;
     }
   },
 
   methods: {
-    mountFromServer({recipe}) {
+    mountFromServer({ recipe }) {
       if (recipe) {
         this.recipe = recipe;
       }
@@ -73,9 +81,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

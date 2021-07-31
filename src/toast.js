@@ -1,34 +1,34 @@
 import iziToast from "izitoast";
 
 iziToast.settings({
-    position: 'topCenter'
-})
+  position: "topCenter"
+});
 
 export default {
-    show(type, message, title, config) {
-        let data = {
-            message,
-        };
+  show(type, message, title, config) {
+    let data = {
+      message
+    };
 
-        if (title) data['title'] = title;
+    if (title) data["title"] = title;
 
-        if (config)
-            data = {
-                ...data,
-                ...config
-            };
+    if (config)
+      data = {
+        ...data,
+        ...config
+      };
 
-        return iziToast[type](data)
-    },
-    success(message, title, config) {
-        return this.show('success', message, title, config)
-    },
+    return iziToast[type](data);
+  },
+  success(message, title, config) {
+    return this.show("success", message, title, config);
+  },
 
-    info(message, title, config) {
-        return this.show('info', message, title, config)
-    },
+  info(message, title, config) {
+    return this.show("info", message, title, config);
+  },
 
-    error(message, title, config) {
-        return this.show('error', message, title, config)
-    }
-}
+  error(message, title, config) {
+    return this.show("error", message, title, config);
+  }
+};

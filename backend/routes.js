@@ -1,52 +1,55 @@
+const { $ } = require("../recipe-app");
+
 const route = $.router;
 
-route.path('/api', () => {
-    route.path('auth', () => {
+route.path("/api", () => {
+  route
+    .path("auth", () => {
+      route.get("@me");
+      route.post("@login");
+      route.post("@logout");
+    })
+    .controller("Auth");
 
-        route.get('@me');
-        route.post('@login');
-        route.post('@logout');
+  route
+    .path("categories", () => {
+      route.get("=all");
+      route.post("=create");
+      route.delete("=delete");
+      route.patch("=rename");
+    })
+    .controller("Category")
+    .middleware("Auth.logged");
 
-    }).controller('Auth')
+  route
+    .path("recipes", () => {
+      route.get("=all");
+      route.post("=add");
+    })
+    .controller("Recipe")
+    .middleware("Auth.logged");
 
-
-    route.path('categories', () => {
-
-        route.get('=all');
-        route.post('=create');
-        route.delete('=delete');
-        route.patch('=rename');
-
-    }).controller('Category').middleware('Auth.logged');
-
-    route.path('recipes', () => {
-
-        route.get('=all');
-        route.post('=add');
-
-    }).controller('Recipe').middleware('Auth.logged')
-
-    route.path('recipe/:recipe', () => {
-
-        route.get('=view');
-        route.post('=edit');
-        route.delete('=delete')
-
-    }).controller('Recipe').middleware('Auth.logged')
+  route
+    .path("recipe/:recipe", () => {
+      route.get("=view");
+      route.post("=edit");
+      route.delete("=delete");
+    })
+    .controller("Recipe")
+    .middleware("Auth.logged");
 });
 
 /**
  * Api for mobile app
  */
-route.path('/app', () => {
+route
+  .path("/app", () => {
+    route.get("@categories");
+    route.get("@recipes");
+    route.get("recipes/:recipe", "recipe");
+  })
+  .controller("Api");
 
-    route.get('@categories')
-    route.get('@recipes');
-    route.get('recipes/:recipe', 'recipe');
-
-}).controller('Api');
-
-
-route.all('/*', (http) => {
-    return http.status(404).send({404: 'Not found'})
-})
+route.all("/*", (http) => {
+  return http.status(404).send({ 404: "Not found" });
+});

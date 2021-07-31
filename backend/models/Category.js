@@ -1,17 +1,13 @@
-const {DBCollection, is} = require("@xpresser/xpress-mongo/util");
-// Schema
-const CategorySchema = {
+const { UseCollection } = require("@xpresser/xpress-mongo");
+const { XMongoModel, is } = require("xpress-mongo");
+
+class Category extends XMongoModel {
+  static schema = {
     name: is.String().required(),
     addedAt: is.Date().required()
+  };
 }
 
-
-
-class Category extends DBCollection('categories') {
-    constructor() {
-        super();
-        this.useSchema(CategorySchema);
-    }
-}
+UseCollection(Category, "categories");
 
 module.exports = Category;

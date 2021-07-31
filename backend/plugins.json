@@ -1,4 +1,5 @@
-[
-  "npm://@xpresser/xpress-mongo",
-  "npm://@xpresser/file-uploader"
-]
+{
+  "npm://@xpresser/session": true,
+  "npm://@xpresser/xpress-mongo": true,
+  "npm://@xpresser/file-uploader": true
+}

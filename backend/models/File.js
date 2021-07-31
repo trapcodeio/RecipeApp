@@ -1,24 +1,21 @@
-const {DBCollection, is} = require("@xpresser/xpress-mongo/util");
+const { is, XMongoModel } = require("xpress-mongo");
+const { UseCollection } = require("@xpresser/xpress-mongo");
 
-const FileSchema = {
+/**
+ * File Model
+ * @class
+ */
+class File extends XMongoModel {
+  static schema = {
     addedAt: is.Date().required(),
     name: is.String().required(),
     path: is.String().required(),
     extension: is.String().required(),
     size: is.Number().required(),
     mimeType: is.String().required()
+  };
 }
-/**
-* File Model
-* @class
-*/
-class File extends DBCollection('files') {
 
-    constructor() {
-        super();
-        this.useSchema(FileSchema)
-    }
-
-}
+UseCollection(File, "files");
 
 module.exports = File;

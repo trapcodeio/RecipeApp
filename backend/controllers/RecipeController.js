@@ -9,7 +9,7 @@ abolish.addValidators([
   require("abolish/validators/string/jsonDecode")
 ]);
 
-const ValidateRecipeRule = ParseRules({
+const RecipeRule = ParseRules({
   title: "must|minLength:3",
   category: "must|minLength:3",
   calories: "must|minLength:1",
@@ -127,7 +127,7 @@ const RecipeController = {
     }
 
     const body = Obj(image.body).allWithoutNullOrUndefined();
-    const [error, validated] = abolish.validate(body, ValidateRecipeRule);
+    const [error, validated] = abolish.validate(body, RecipeRule);
 
     if (error) {
       image.discard();
@@ -193,20 +193,7 @@ const RecipeController = {
 
     const body = $.objectCollection(image.body).allWithoutNullOrUndefined();
 
-    const [error, validated] = abolish.validate(body, {
-      title: "must|minLength:3",
-      category: "must|minLength:3",
-      calories: "must|minLength:1",
-      difficulty: "must",
-      duration: "must",
-      ingredients: "must|json|jsonDecode",
-      preparation: {
-        must: true,
-        minLength: 10,
-        $skip: (str) => !str
-      },
-      method: "must"
-    });
+    const [error, validated] = abolish.validate(body, RecipeRule);
 
     if (error) {
       return e(error.message);

@@ -1,12 +1,28 @@
 const Sharp = require("sharp");
 const Recipe = require("../models/Recipe");
-const { Abolish } = require("abolish");
+const { Abolish, ParseRules } = require("abolish");
 const { $ } = require("../../recipe-app");
+const { Obj } = require("object-collection/exports");
 const abolish = new Abolish();
 abolish.addValidators([
   require("abolish/validators/string/json"),
   require("abolish/validators/string/jsonDecode")
 ]);
+
+const ValidateRecipeRule = ParseRules({
+  title: "must|minLength:3",
+  category: "must|minLength:3",
+  calories: "must|minLength:1",
+  difficulty: "must",
+  duration: "must",
+  ingredients: "must|json|jsonDecode",
+  preparation: {
+    must: true,
+    minLength: 10,
+    $skip: (str) => !str
+  },
+  method: "must"
+});
 
 /**
  * Resize image after upload
@@ -95,7 +111,6 @@ const RecipeController = {
    * @param {Xpresser.Http} http
    * @param boot
    * @param e
-   * @return {Promise<void>}
    */
   async add(http, boot, e) {
     const image = await http.file("image", {
@@ -111,24 +126,11 @@ const RecipeController = {
       }
     }
 
-    const body = $.objectCollection(image.body).allWithoutNullOrUndefined();
-
-    const { error, validated } = abolish.validate(body, {
-      title: "must|minLength:3",
-      category: "must|minLength:3",
-      calories: "must|minLength:1",
-      difficulty: "must",
-      duration: "must",
-      ingredients: "must|json|jsonDecode",
-      preparation: {
-        must: true,
-        minLength: 10,
-        $skip: (str) => !str
-      },
-      method: "must"
-    });
+    const body = Obj(image.body).allWithoutNullOrUndefined();
+    const [error, validated] = abolish.validate(body, ValidateRecipeRule);
 
     if (error) {
+      image.discard();
       return e(error.message);
     }
 
@@ -145,7 +147,10 @@ const RecipeController = {
 
     // get file relative path
     image.path = image.path.replace(folder, "");
-    const recipe = Recipe.make(validated).set("image", image.path).set("status", "draft");
+    const recipe = Recipe.make(validated).set({
+      image: image.path,
+      status: "draft"
+    });
 
     // Save recipe
     await recipe.save();

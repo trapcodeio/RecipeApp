@@ -1903,10 +1903,10 @@
     dotenv "^8.2.0"
     dotenv-expand "^5.1.0"
 
-"@xpresser/file-uploader@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@xpresser/file-uploader/-/file-uploader-1.6.2.tgz#7e8b895a41adbf50c966c420166bb60a74563e8a"
-  integrity sha512-HGCtP/98PRchvCr+pQyrSVw4IR7u3uIhOTrIsI28J7ZbGg5TR3K21BQFQfUbhywjRawsI5TKI+d5+awjHI0enw==
+"@xpresser/file-uploader@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@xpresser/file-uploader/-/file-uploader-1.7.2.tgz#c2027ff5296a6d75e2e49895aec5ec162fc0c111"
+  integrity sha512-WFUCXNZL7HtfpseUmeZQ0SmaRwoSuN8oDAp50EZBeQhd8i58+CL5RmuH2EhGPUWUKd9WrwieSnNNISUVKC7ICw==
   dependencies:
     busboy "^0.3.1"
 

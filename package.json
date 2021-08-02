@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@xpresser/env": "^1.0.3",
-    "@xpresser/file-uploader": "^1.6.2",
+    "@xpresser/file-uploader": "^1.7.2",
     "@xpresser/session": "^1.4.2",
     "@xpresser/xpress-mongo": "^1.1.1",
     "abolish": "^4.4.0",

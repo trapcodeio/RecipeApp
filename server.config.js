@@ -1,6 +1,6 @@
-const envLoader = require("@xpresser/env");
+const {LoadEnv} = require("@xpresser/env");
 const base = __dirname;
-const env = envLoader(base);
+const env = LoadEnv(base);
 
 const isDev = env.NODE_ENV === "development";
 const mongo_pass = encodeURI(env["MongoPassword"]);

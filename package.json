@@ -13,16 +13,16 @@
     "@xpresser/env": "^2.0.10",
     "@xpresser/file-uploader": "^2.1.1",
     "@xpresser/session": "^1.8.1",
-    "@xpresser/xpress-mongo": "^1.1.1",
+    "@xpresser/xpress-mongo": "^1.1.8",
     "abolish": "^4.4.0",
     "bulma": "^0.9.3",
     "core-js": "^3.16.0",
     "object-collection": "^2.0.0",
-    "sharp": "^0.28.3",
+    "sharp": "^0.31.2",
     "vue": "^2.6.14",
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
-    "xpress-mongo": "^1.4.1",
+    "xpress-mongo": "^2.12.1",
     "xpresser": "^0.30.2"
   },
   "devDependencies": {
@@ -39,7 +39,7 @@
     "izitoast": "^1.4.0",
     "moment": "^2.29.1",
     "node-sass": "^6.0.1",
-    "prettier": "^2.3.2",
+    "prettier": "^2.8.1",
     "sass-loader": "^10",
     "vue-template-compiler": "^2.6.14",
     "vue-trap-pack": "^0.0.37"
